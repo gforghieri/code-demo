@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.25">
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/main/java/nl/tudelft/cse/sem/group34/desktop/DesktopLauncher.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/main/java/nl/tudelft/cse/sem/group34/desktop/SpringBootApp.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/main/java/nl/tudelft/cse/sem/group34/desktop/authentication/entities/User.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/main/java/nl/tudelft/cse/sem/group34/desktop/authentication/repository/UserRepository.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/main/java/nl/tudelft/cse/sem/group34/desktop/authentication/services/UserService.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/main/java/nl/tudelft/cse/sem/group34/desktop/authentication/utility/RequestHandler.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/main/java/nl/tudelft/cse/sem/group34/desktop/authentication/utility/ServerRequests.java">
+</file>
+</checkstyle>

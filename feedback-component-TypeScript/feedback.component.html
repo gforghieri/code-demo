@@ -1,0 +1,83 @@
+<!--@date: created on 08-07-2019
+@author gforghieri
+@author gmforghieri-->
+
+<!--Close Button-->
+<button *ngIf="!_isLastPage" mat-icon-button (click)="closeConfirmModal()" id="close-button">
+    <mat-icon aria-hidden="false" aria-label="Close icon" inline="true">close</mat-icon>
+</button>
+
+<!--Instructions for the feedback-form on its first page-->
+<div @InsertTrigger @RemoveTrigger *ngIf="_isFirstPage" class="instructions-text">
+    <h1>Your feedback helps</h1>
+    <p>How satisfied are you with Dropboard's new features?<br>
+        Please first select: From "Satisfied" or "Not Satisfied", then you can tell us more in the comment section.</p>
+    <p id="skip-text">Hint: You can also skip rating a feature.</p>
+</div>
+
+<!--Features to give feedback on, displayed on a Matdialog through an ngFor loop from an array of feature objects-->
+<mat-horizontal-stepper linear>
+    <mat-step *ngFor="let userFeedback of _userFeedbackArray; let index = index; let last = last">
+        <ng-template matStepLabel>{{userFeedback.feature.name}}</ng-template>
+        <div class="flexbox-header">
+            <div class="feature">{{userFeedback.feature.name}}</div>
+            <!--            INFOLINK demoing the feature is commented out until we can add meaningful content to it-->
+            <!--            <div *ngIf="!last" class="more-info">-->
+            <!--                <button mat-raised-button (click)="featureDemoLink(feature.link)">Where can I find this feature?-->
+            <!--                </button>-->
+            <!--            </div>-->
+        </div>
+
+        <div class="grid-page">
+            <div class="description">{{userFeedback.feature.description}}</div>
+            <div class="emoji">
+                <button [ngClass]="{'smile-toggle': userFeedback.liked}"
+                        (click)=" userFeedback.liked=true; userFeedback.dirty=true;" mat-icon-button id="smile-button">
+                    <i class="fas fa-smile fa-5x"></i></button>
+                <button [ngClass]="{'frown-toggle': userFeedback.liked===false}"
+                        (click)="userFeedback.liked=false; userFeedback.dirty=true;" mat-icon-button id="frown-button">
+                    <i class="fas fa-frown fa-5x"></i></button>
+            </div>
+
+            <div @InsertTrigger *ngIf="userFeedback.dirty" class="comment">
+                <mat-form-field>
+                    <label>
+                        <textarea matInput #comment maxlength="512"
+                                  (change)="userFeedback.feedback=comment.value;"
+                                  [rows]="5" [cdkTextareaAutosize]="false"
+                                  placeholder="What would you like us to improve on? / What do you like about this feature?"></textarea>
+                    </label>
+                    <mat-hint align="end">{{comment.value.length}} / 512</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="!userFeedback.dirty && !last" id="skip-button">
+                <button mat-raised-button matStepperNext
+                        (click)="userFeedback.skipped=true; hideInstructions();">Skip
+                </button>
+            </div>
+            <div *ngIf="!_isFirstPage" id="previous-button">
+                <button mat-raised-button matStepperPrevious (click)="showInstructions(index)">Previous</button>
+            </div>
+            <div *ngIf="userFeedback.dirty && !last" class="newexpand next-button">
+                <button mat-raised-button color="accent" matStepperNext (click)="hideInstructions()">Next</button>
+            </div>
+            <div *ngIf="userFeedback.dirty && last" class="newexpand next-button">
+                <button mat-raised-button color="accent" matStepperNext (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+    </mat-step>
+
+    <!--Feedback has been submitted, Thank you page!-->
+    <mat-step>
+        <ng-template matStepLabel>Thank you!</ng-template>
+        <div class="last-page">
+            <section>
+                <h1>Thank you for your feedback!</h1>
+                <mat-icon aria-hidden="false" aria-label="Check icon">check_circle</mat-icon>
+            </section>
+            <p>Systems Navigator's Dropboard team might contact you regarding your feedback.</p>
+            <button mat-raised-button color="accent" (click)=closeModal()>Close</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

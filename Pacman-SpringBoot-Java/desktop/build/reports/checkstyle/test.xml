@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.25">
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/test/java/nl/tudelft/cse/sem/group34/desktop/DesktopGameScreenTest.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/test/java/nl/tudelft/cse/sem/group34/desktop/authentication/entities/UserTest.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/test/java/nl/tudelft/cse/sem/group34/desktop/authentication/services/UserServiceTest.java">
+</file>
+<file name="/home/sysnavgforghieri/Documents/pacman-group34/desktop/src/test/java/nl/tudelft/cse/sem/group34/desktop/authentication/utility/ServerRequestsTest.java">
+</file>
+</checkstyle>

@@ -1,0 +1,64 @@
+
+pack.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+barrack
+  rotate: false
+  xy: 516, 357
+  size: 150, 90
+  orig: 150, 90
+  offset: 0, 0
+  index: -1
+green
+  rotate: false
+  xy: 2, 132
+  size: 296, 126
+  split: 48, 48, 44, 40
+  pad: 46, 43, 44, 40
+  orig: 296, 126
+  offset: 0, 0
+  index: -1
+groundGrass
+  rotate: false
+  xy: 516, 449
+  size: 224, 61
+  orig: 224, 61
+  offset: 0, 0
+  index: -1
+heli
+  rotate: false
+  xy: 300, 132
+  size: 136, 65
+  orig: 136, 65
+  offset: 0, 0
+  index: -1
+hill1Night
+  rotate: false
+  xy: 300, 199
+  size: 185, 59
+  orig: 185, 59
+  offset: 0, 0
+  index: -1
+pacman
+  rotate: false
+  xy: 2, 260
+  size: 512, 250
+  orig: 512, 250
+  offset: 0, 0
+  index: -1
+particle
+  rotate: false
+  xy: 260, 98
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+styles
+  rotate: false
+  xy: 2, 2
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1

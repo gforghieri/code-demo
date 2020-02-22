@@ -1,0 +1,139 @@
+feedback-component-dialog {
+
+    .instructions-text {
+        text-align: center;
+        overflow: hidden;
+    }
+
+    // Disables stepper header navigation by modifying the underlying structure
+    .mat-horizontal-stepper-header {
+        pointer-events: none !important;
+    }
+
+    #skip-text {
+        color: #878787;
+    }
+
+    #close-button {
+        float: right;
+        bottom: 15px;
+        left: 16px;
+        width: 20px;
+        height: 20px;
+        line-height: 8px;
+
+        > mat-icon {
+            font-weight: bold;
+        }
+    }
+
+    .flexbox-header {
+        display: flex;
+    }
+
+    .flexbox-header > div:nth-child(2) {
+        margin-left: auto;
+        align-content: flex-end;
+        font-size: 1em;
+    }
+
+    .feature {
+        font-size: 2em;
+    }
+
+    .flexbox-header > div {
+        padding: 10px 10px;
+    }
+
+    .grid-page > div {
+        padding: 0 10px;
+    }
+
+    .grid-page {
+        min-height: 90%;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: repeat(10, 1fr);
+
+    }
+
+    .description {
+        grid-column: 1 / 11;
+        text-align: justify;
+
+    }
+
+    .emoji {
+        grid-column: 1 / -1;
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    #smile-button {
+        height: 100px;
+        width: 100px;
+        margin-right: 20px;
+
+    }
+
+    #smile-button:hover {
+        color: green;
+    }
+
+    .smile-toggle {
+        color: green;
+
+    }
+
+    #frown-button {
+        height: 100px;
+        width: 100px;
+        margin-left: 20px;
+    }
+
+    #frown-button:hover {
+        color: red;
+    }
+
+    .frown-toggle {
+        color: red;
+    }
+
+    .comment {
+        grid-column: 1 / 11;
+        margin-bottom: 10px
+    }
+
+    #skip-button {
+        grid-column: 1 / 2;
+    }
+
+    #previous-button {
+        grid-column: 9 / 10;
+    }
+
+    .next-button {
+        grid-column: 10 / -1;
+    }
+
+    .last-page {
+        text-align: center;
+
+        > section {
+            color: green;
+            margin-bottom: 20px;
+
+            > mat-icon {
+                font-size: 50px;
+                width: auto;
+                height: auto;
+            }
+        }
+
+        > button {
+            margin-top: 20px;
+            float: right;
+        }
+    }
+}

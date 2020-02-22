@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">desktop</a> &gt; <a href="index.source.html" class="el_package">nl.tudelft.cse.sem.group34.desktop.authentication.entities</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package nl.tudelft.cse.sem.group34.desktop.authentication.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = &quot;User&quot;)
+public class User {
+
+    @Id
+    @Column(length = 50, updatable = false, nullable = false)
+    private String username;
+
+    @Column(length = 50, updatable = false, nullable = false)
+    private String password;
+
+    @Column(length = 50, updatable = true, nullable = false)
+    private int score;
+
+    @Column(length = 50, updatable = true, nullable = false)
+    private String nickname;
+
+<span class="fc" id="L25">    public User() {</span>
+
+<span class="fc" id="L27">    }</span>
+
+    public void setNickname(String nickname) {
+<span class="fc" id="L30">        this.nickname = nickname;</span>
+<span class="fc" id="L31">    }</span>
+
+    public String getNickname() {
+<span class="nc" id="L34">        return nickname;</span>
+    }
+
+    /**
+     * This is the constructor of the class.
+     * 
+     * @param username is username
+     * @param password is password
+     */
+<span class="fc" id="L43">    public User(String username, String password) {</span>
+<span class="fc" id="L44">        this.username = username;</span>
+<span class="fc" id="L45">        this.password = password;</span>
+<span class="fc" id="L46">        this.score = 0;</span>
+<span class="fc" id="L47">        this.nickname = &quot;&quot;;</span>
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * Method returns the username.
+     * @return string
+     */
+    public String getUsername() {
+<span class="fc" id="L55">        return username;</span>
+    }
+
+    /**
+     * This method sets the username.
+     * @param username is username.
+     */
+    public void setUsername(String username) {
+<span class="fc" id="L63">        this.username = username;</span>
+<span class="fc" id="L64">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L67">        return password;</span>
+    }
+
+    /**
+     * This method sets the password of the user.
+     * @param password is password.
+     */
+    public void setPassword(String password) {
+<span class="fc" id="L75">        this.password = password;</span>
+<span class="fc" id="L76">    }</span>
+
+    /**
+     * This method sets the score of the user.
+     * @param score the score to which the user's score needs to be set.
+     */
+    public void setScore(int score) {
+<span class="fc" id="L83">        this.score = score;</span>
+<span class="fc" id="L84">    }</span>
+
+    /**
+     * This method get the score of the user.
+     * @return
+     */
+    public int getScore() {
+<span class="fc" id="L91">        return score;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

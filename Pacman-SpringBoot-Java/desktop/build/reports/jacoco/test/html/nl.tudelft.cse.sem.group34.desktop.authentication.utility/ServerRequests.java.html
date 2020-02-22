@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ServerRequests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">desktop</a> &gt; <a href="index.source.html" class="el_package">nl.tudelft.cse.sem.group34.desktop.authentication.utility</a> &gt; <span class="el_source">ServerRequests.java</span></div><h1>ServerRequests.java</h1><pre class="source lang-java linenums">package nl.tudelft.cse.sem.group34.desktop.authentication.utility;
+
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Pattern;
+import nl.tudelft.cse.sem.group34.desktop.authentication.entities.User;
+import org.apache.http.client.methods.CloseableHttpResponse;
+
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+
+public class ServerRequests {
+
+    private static Pattern pattern;
+
+    private static final transient int HTTP_SUCCESS = 200;
+
+    private static transient User[] userArray;
+    private static transient List&lt;User&gt; userList;
+
+    private static final int LEAST_NUMBER_OF_RESPONSES = 2;
+
+    private String username;
+
+<span class="fc" id="L33">    private static String requestUrl = &quot;http://localhost:3306/&quot;;</span>
+
+<span class="fc" id="L35">    public ServerRequests(String username) {</span>
+<span class="fc" id="L36">        this.username = username;</span>
+<span class="fc" id="L37">    }</span>
+
+    public void setUsername(String user) {
+<span class="fc" id="L40">        username = user;</span>
+<span class="fc" id="L41">    }</span>
+
+    public String getUsername() {
+<span class="fc" id="L44">        return username;</span>
+    }
+
+    /**
+     * This function takes in a username and password, both of type String.
+     * If the project.server responds with the correct result it will print this to the console,
+     * and processes the login.
+     * if not valid it will print &quot;Wrong username or password&quot;.
+     *
+     * @param username type.
+     * @param password type.
+     */
+    public static String login(String username, String password) throws IOException {
+
+<span class="fc bfc" id="L58" title="All 4 branches covered.">        if (username == null || password == null) {</span>
+<span class="fc" id="L59">            return null;</span>
+        }
+
+<span class="fc" id="L62">        String response = sendRequestToServer(&quot;login&quot;,</span>
+<span class="fc" id="L63">                new Gson().toJson(new String[]{username, password}));</span>
+
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (response != null) {</span>
+<span class="fc" id="L66">            String[] resArr = response.split(&quot;::&quot;);</span>
+<span class="fc" id="L67">            System.out.println(&quot;[INFO] User:&quot; + username + &quot; has logged in.&quot;);</span>
+<span class="fc" id="L68">            return &quot;success: &quot; + resArr[0];</span>
+        } else {
+<span class="fc" id="L70">            System.out.println(&quot;[ERROR] Wrong username or password&quot;);</span>
+<span class="fc" id="L71">            return &quot;fail&quot;;</span>
+        }
+    }
+
+    /**
+     * This function takes in a username and password, both of type String.
+     * If the username and/or password don't have the proper syntax it will return.
+     * If the project.server responds with the correct result it will print this to the console,
+     * if not valid it will print an error notifying the sign up was not successful.
+     *
+     * @param username parameter.
+     * @param password parameter.
+     * @return the input in JSON format.
+     */
+    public static String signUp(String username, String password) throws IOException {
+
+<span class="fc" id="L87">        pattern = Pattern.compile(&quot;[A-Za-z0-9_]+&quot;);</span>
+<span class="fc bfc" id="L88" title="All 4 branches covered.">        if (username == null || password == null) {</span>
+<span class="fc" id="L89">            return null;</span>
+        }
+
+<span class="fc bfc" id="L92" title="All 4 branches covered.">        if (!pattern.matcher(username).matches() || !pattern.matcher(password).matches()) {</span>
+<span class="fc" id="L93">            return &quot;syntax&quot;;</span>
+        }
+
+<span class="fc" id="L96">        String response = sendRequestToServer(&quot;signup&quot;,</span>
+<span class="fc" id="L97">                new Gson().toJson(new String[]{username, password}));</span>
+
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (response != null) {</span>
+<span class="fc" id="L100">            System.out.println(&quot;[INFO] The sign up was successful: &quot; + response);</span>
+<span class="fc" id="L101">            return &quot;ok&quot;;</span>
+        } else {
+<span class="fc" id="L103">            System.out.println(&quot;[ERROR] The sign up was not successful&quot;);</span>
+<span class="fc" id="L104">            return &quot;fail&quot;;</span>
+        }
+    }
+
+    /**
+     * This function will prepare the HTTP project.client to send a request to the project.server.
+     * With type it will know what URL to go to. The response will be a String,
+     * which can be formatted afterwards via JSON.
+     *
+     * @param type is the specified url.
+     * @param json is the user in json format.
+     * @return a string which will be formatted as JSON.
+     */
+    public static String sendRequestToServer(String type, String json) throws IOException {
+<span class="fc" id="L118">        CloseableHttpClient client = HttpClients.createDefault();</span>
+        try {
+
+<span class="fc" id="L121">            HttpPost httpPost = new HttpPost(requestUrl + type);</span>
+
+<span class="fc" id="L123">            StringEntity entity = new StringEntity(json);</span>
+<span class="fc" id="L124">            httpPost.setEntity(entity);</span>
+<span class="fc" id="L125">            httpPost.setHeader(&quot;Accept&quot;, &quot;application/json&quot;);</span>
+<span class="fc" id="L126">            httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);</span>
+<span class="fc" id="L127">            CloseableHttpResponse response = client.execute(httpPost);</span>
+            try {
+<span class="fc" id="L129">                String msg = new BasicResponseHandler().handleResponse(response);</span>
+<span class="fc" id="L130">                System.out.println(msg);</span>
+<span class="fc" id="L131">                System.out.println(msg);</span>
+<span class="fc" id="L132">                System.out.println(msg);</span>
+<span class="fc" id="L133">                System.out.println(msg);</span>
+<span class="fc" id="L134">                System.out.println(msg);</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">                if (msg.length() &lt;= LEAST_NUMBER_OF_RESPONSES) {</span>
+<span class="fc" id="L136">                    throw new IOException();</span>
+                }
+<span class="fc" id="L138">                System.out.println(&quot;[INFO] The project.server responded with &quot; + msg);</span>
+<span class="fc" id="L139">                return msg;</span>
+<span class="fc" id="L140">            } catch (Exception e) {</span>
+<span class="fc" id="L141">                e.printStackTrace();</span>
+<span class="fc" id="L142">                return null;</span>
+            } finally {
+<span class="fc" id="L144">                response.close();</span>
+            }
+<span class="nc" id="L146">        } catch (IOException e) {</span>
+<span class="nc" id="L147">            e.printStackTrace();</span>
+<span class="nc" id="L148">            return null;</span>
+        } finally {
+<span class="fc" id="L150">            client.close();</span>
+        }
+    }
+
+    /**
+     * Sends a request to the server with the username and the score of the player.
+     * @param username Username of the player.
+     * @param score The score that the player achieved.
+     * @return Returns a message that either succeeds or fails.
+     */
+    public static String updateLeaderBoards(String username, int score, String nickname) throws IOException {
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        if (username == null) {</span>
+<span class="nc" id="L162">            return null;</span>
+        }
+
+<span class="fc" id="L165">        String response = sendRequestToServer(&quot;score&quot;, new Gson().toJson(</span>
+<span class="fc" id="L166">                new String[]{username, Integer.toString(score), nickname}));</span>
+
+<span class="fc" id="L168">        System.out.println(response);</span>
+
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        if (response != null) {</span>
+<span class="fc" id="L171">            System.out.println(&quot;[SUCCESS]&quot;);</span>
+<span class="fc" id="L172">            return &quot;success&quot;;</span>
+        } else {
+<span class="fc" id="L174">            System.out.println(&quot;[ERROR]&quot;);</span>
+<span class="fc" id="L175">            return &quot;fail&quot;;</span>
+        }
+    }
+
+    /**
+     * This method gets all the users from the database.
+     * @return Returns a List of users.
+     * @throws IOException if there was an issue with the request.
+     */
+    @SuppressWarnings(&quot;PMD.CloseResource&quot;)
+    public static List&lt;User&gt; getAllUsers() throws IOException {
+<span class="fc" id="L186">        CloseableHttpClient client = HttpClients.createDefault();</span>
+<span class="fc" id="L187">        HttpGet httpGet = new HttpGet(requestUrl + &quot;getusers&quot;);</span>
+<span class="fc" id="L188">        httpGet.addHeader(&quot;accept&quot;, &quot;application/json&quot;);</span>
+<span class="fc" id="L189">        System.out.println(&quot;Request Type: &quot; + httpGet.getMethod());</span>
+<span class="fc" id="L190">        CloseableHttpResponse response = client.execute(httpGet);</span>
+        try {
+<span class="fc" id="L192">            String json = EntityUtils.toString(response.getEntity());</span>
+
+<span class="fc" id="L194">            userArray = new Gson().fromJson(json, User[].class);</span>
+
+<span class="fc" id="L196">            userList = Arrays.asList(userArray);</span>
+<span class="nc" id="L197">        } catch (Exception e) {</span>
+<span class="nc" id="L198">            System.out.println(e);</span>
+        } finally {
+<span class="fc" id="L200">            response.close();</span>
+<span class="fc" id="L201">            client.close();</span>
+        }
+<span class="fc" id="L203">        return userList;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

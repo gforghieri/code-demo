@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.tudelft.cse.sem.group34.desktop.DesktopGameScreenTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-01-24T15:29:49" hostname="gforghieri-GF63-8RD" time="0.251">
+  <properties/>
+  <testcase name="testLauncherOne()" classname="nl.tudelft.cse.sem.group34.desktop.DesktopGameScreenTest" time="0.014"/>
+  <testcase name="testLauncherTwo()" classname="nl.tudelft.cse.sem.group34.desktop.DesktopGameScreenTest" time="0.236"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

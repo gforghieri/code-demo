@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.tudelft.cse.sem.group34.desktop.authentication.services.UserServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-01-24T15:29:56" hostname="gforghieri-GF63-8RD" time="0.721">
+  <properties/>
+  <testcase name="exists" classname="nl.tudelft.cse.sem.group34.desktop.authentication.services.UserServiceTest" time="0.195"/>
+  <testcase name="signUp" classname="nl.tudelft.cse.sem.group34.desktop.authentication.services.UserServiceTest" time="0.164"/>
+  <testcase name="userExist" classname="nl.tudelft.cse.sem.group34.desktop.authentication.services.UserServiceTest" time="0.261"/>
+  <testcase name="userExistsWrongPass" classname="nl.tudelft.cse.sem.group34.desktop.authentication.services.UserServiceTest" time="0.096"/>
+  <system-out><![CDATA[Hibernate: select user0_.username as username1_0_0_, user0_.nickname as nickname2_0_0_, user0_.password as password3_0_0_, user0_.score as score4_0_0_ from user user0_ where user0_.username=?
+Hibernate: update user set nickname=?, score=? where username=?
+Hibernate: select count(*) as col_0_0_ from user user0_ where user0_.username=?
+Hibernate: select user0_.username as username1_0_0_, user0_.nickname as nickname2_0_0_, user0_.password as password3_0_0_, user0_.score as score4_0_0_ from user user0_ where user0_.username=?
+Hibernate: select count(*) as col_0_0_ from user user0_ where user0_.username=?
+Hibernate: select user0_.username as username1_0_0_, user0_.nickname as nickname2_0_0_, user0_.password as password3_0_0_, user0_.score as score4_0_0_ from user user0_ where user0_.username=?
+Hibernate: select count(*) as col_0_0_ from user user0_ where user0_.username=?
+Hibernate: select user0_.username as username1_0_0_, user0_.nickname as nickname2_0_0_, user0_.password as password3_0_0_, user0_.score as score4_0_0_ from user user0_ where user0_.username=?
+Hibernate: select count(*) as col_0_0_ from user user0_ where user0_.username=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
